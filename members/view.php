@@ -16,6 +16,7 @@ $result = $conn->query("
 
 <p><a href="add.php" class="btn">+ Add New Member</a></p>
 
+<div class="table-responsive">
 <table>
     <tr>
         <th>Full Name</th>
@@ -43,6 +44,7 @@ $result = $conn->query("
         <tr><td colspan="5">No members found.</td></tr>
     <?php endif; ?>
 </table>
+</div>
 
 <?php
 include '../includes/footer.php';
