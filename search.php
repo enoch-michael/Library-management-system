@@ -36,6 +36,7 @@ if ($query !== '') {
 <?php if ($query !== ''): ?>
     <h2 style="margin-top:30px;">Results for "<?php echo htmlspecialchars($query); ?>"</h2>
 
+    <div class="table-responsive">
     <table>
         <tr>
             <th>Title</th>
@@ -60,6 +61,7 @@ if ($query !== '') {
             <tr><td colspan="5">No books matched your search.</td></tr>
         <?php endif; ?>
     </table>
+    </div>
 <?php endif; ?>
 
 <?php
