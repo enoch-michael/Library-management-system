@@ -1,7 +1,7 @@
 <?php
 /**
- * Shared Header + Sidebar Navigation
- * -------------------------------------
+ * Shared Header + Sidebar Navigation (mobile-responsive)
+ * ---------------------------------------------------------
  * Include this at the top of every page, AFTER db.php and any PHP
  * logic, but BEFORE your HTML content.
  *
@@ -36,9 +36,20 @@ function nav_active($page, $folder = null) {
 </head>
 <body>
 
+<!-- Mobile-only top bar with hamburger toggle -->
+<div class="mobile-topbar">
+    <button id="sidebarToggle" class="hamburger-btn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <span class="mobile-logo"><i class="fa-solid fa-book-open"></i> Library System</span>
+</div>
+
+<!-- Overlay shown behind the sidebar when open on mobile -->
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
+
 <div class="layout">
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <nav class="sidebar-nav">
             <ul>
                 <li class="<?php echo nav_active('index.php'); ?>">
