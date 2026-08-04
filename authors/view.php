@@ -15,6 +15,7 @@ $result = $conn->query("
 
 <p><a href="add.php" class="btn">+ Add New Author</a></p>
 
+<div class="table-responsive">
 <table>
     <tr>
         <th>Name</th>
@@ -40,6 +41,7 @@ $result = $conn->query("
         <tr><td colspan="4">No authors found.</td></tr>
     <?php endif; ?>
 </table>
+</div>
 
 <?php
 include '../includes/footer.php';
