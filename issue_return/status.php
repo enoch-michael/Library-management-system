@@ -17,6 +17,7 @@ $result = $conn->query("
 
 <h1>Issued &amp; Overdue Books</h1>
 
+<div class="table-responsive">
 <table>
     <tr>
         <th>Book</th>
@@ -52,6 +53,7 @@ $result = $conn->query("
         <tr><td colspan="6">No issue records found.</td></tr>
     <?php endif; ?>
 </table>
+</div>
 
 <?php
 include '../includes/footer.php';
