@@ -14,6 +14,7 @@ $result = $conn->query("
 
 <p><a href="add.php" class="btn">+ Add New Book</a></p>
 
+<div class="table-responsive">
 <table>
     <tr>
         <th>Title</th>
@@ -43,6 +44,7 @@ $result = $conn->query("
         <tr><td colspan="6">No books found.</td></tr>
     <?php endif; ?>
 </table>
+</div>
 
 <?php
 include '../includes/footer.php';
