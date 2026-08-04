@@ -1,25 +1,21 @@
 /**
- * Basic client-side form validation
- * -----------------------------------
- * Attach the class "validate-form" to any <form> that should be
- * checked before submission. Add "required" attributes to fields
- * that must not be empty.
- *
- * This does NOT replace server-side PHP validation — it just gives
- * the user instant feedback before the page even submits.
+ * Global site JS
+ * -----------------
+ * 1. Basic client-side form validation (any form with class "validate-form")
+ * 2. Mobile sidebar toggle (hamburger menu on small screens)
  */
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    // ---------- 1. Form validation ----------
     const forms = document.querySelectorAll(".validate-form");
 
     forms.forEach(function (form) {
         form.addEventListener("submit", function (e) {
             let isValid = true;
 
-            // Clear old error messages
             form.querySelectorAll(".error").forEach(el => el.remove());
 
-            // Check all required fields
             form.querySelectorAll("[required]").forEach(function (field) {
                 if (!field.value.trim()) {
                     isValid = false;
@@ -27,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            // Basic email format check
             form.querySelectorAll('input[type="email"]').forEach(function (field) {
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (field.value.trim() && !emailPattern.test(field.value.trim())) {
@@ -36,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            // Basic numeric check (e.g. total_copies)
             form.querySelectorAll('input[type="number"]').forEach(function (field) {
                 if (field.value !== "" && Number(field.value) < 0) {
                     isValid = false;
@@ -55,5 +49,37 @@ document.addEventListener("DOMContentLoaded", function () {
         error.className = "error";
         error.textContent = message;
         field.insertAdjacentElement("afterend", error);
+    }
+
+    // ---------- 2. Mobile sidebar toggle ----------
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const overlay = document.getElementById("sidebarOverlay");
+
+    if (sidebar && toggleBtn && overlay) {
+        function openSidebar() {
+            sidebar.classList.add("open");
+            overlay.classList.add("visible");
+        }
+        function closeSidebar() {
+            sidebar.classList.remove("open");
+            overlay.classList.remove("visible");
+        }
+
+        toggleBtn.addEventListener("click", function () {
+            if (sidebar.classList.contains("open")) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+
+        // Tapping the dark overlay closes the menu
+        overlay.addEventListener("click", closeSidebar);
+
+        // Close the menu automatically after tapping a nav link (mobile)
+        sidebar.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", closeSidebar);
+        });
     }
 });
