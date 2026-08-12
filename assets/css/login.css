@@ -1,10 +1,4 @@
-/* =========================================
-   Library Management System
-   Admin Login Styles
-   ========================================= */
 
-
-/* ---------- Base ---------- */
 
 * {
     box-sizing: border-box;
@@ -430,9 +424,7 @@ body {
 }
 
 
-/* =========================================
-   Responsive Design
-   ========================================= */
+//Responsive design
 
 @media (max-width: 480px) {
 
