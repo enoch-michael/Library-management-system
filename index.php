@@ -1,6 +1,7 @@
 <?php
 require_once 'config/db.php';
 include 'includes/header.php';
+require_once __DIR__ . '/includes/auth.php';
 
 $total_books   = $conn->query("SELECT COUNT(*) AS c FROM books")->fetch_assoc()['c'];
 $total_authors = $conn->query("SELECT COUNT(*) AS c FROM authors")->fetch_assoc()['c'];
