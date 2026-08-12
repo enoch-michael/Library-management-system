@@ -1,0 +1,468 @@
+/* =========================================
+   Library Management System
+   Admin Login Styles
+   ========================================= */
+
+
+/* ---------- Base ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    background: #f8fafc;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #111827;
+}
+
+
+/* ---------- Top Bar ---------- */
+
+.top-bar {
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    padding: 16px 24px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.top-bar-icon {
+    width: 28px;
+    height: 28px;
+
+    color: #1d4ed8;
+
+    flex-shrink: 0;
+}
+
+.top-bar-title {
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+
+/* ---------- Main Content ---------- */
+
+.main-content {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 48px 16px;
+}
+
+
+/* ---------- Login Card ---------- */
+
+.login-card {
+    width: 100%;
+    max-width: 448px;
+
+    background: #ffffff;
+
+    border: 1px solid #f3f4f6;
+
+    border-radius: 16px;
+
+    padding: 32px;
+
+    text-align: center;
+
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ---------- Logo ---------- */
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 16px;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+
+    color: #1d4ed8;
+}
+
+
+/* ---------- Heading ---------- */
+
+.login-card h1 {
+    margin: 0 0 4px;
+
+    font-size: 24px;
+    line-height: 32px;
+
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.subtitle {
+    margin: 0 0 24px;
+
+    font-size: 14px;
+
+    color: #6b7280;
+}
+
+
+/* ---------- Admin Access Notice ---------- */
+
+.access-notice {
+    background: #eff6ff;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 12px;
+
+    padding: 16px;
+
+    margin-bottom: 24px;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    text-align: left;
+}
+
+.notice-icon {
+    width: 20px;
+    height: 20px;
+
+    color: #1d4ed8;
+
+    flex-shrink: 0;
+
+    margin-top: 2px;
+}
+
+.notice-title {
+    margin: 0 0 2px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #1e3a8a;
+}
+
+.notice-text {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 20px;
+
+    color: rgba(30, 64, 175, 0.8);
+}
+
+
+/* ---------- Error Message ---------- */
+
+.error-message {
+    background: #fee2e2;
+
+    color: #b91c1c;
+
+    font-size: 14px;
+
+    border-radius: 6px;
+
+    padding: 8px 16px;
+
+    margin-bottom: 16px;
+
+    text-align: left;
+}
+
+
+/* ---------- Login Form ---------- */
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+
+    text-align: left;
+}
+
+
+/* ---------- Input Wrapper ---------- */
+
+.input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+/* ---------- Input Icons ---------- */
+
+.input-icon {
+    position: absolute;
+
+    left: 12px;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    transform: translateY(-50%);
+
+    color: #9ca3af;
+
+    pointer-events: none;
+}
+
+
+/* ---------- Inputs ---------- */
+
+.input-wrapper input[type="email"],
+.input-wrapper input[type="password"],
+.input-wrapper input[type="text"] {
+    width: 100%;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    padding: 10px 16px 10px 40px;
+
+    font-size: 14px;
+
+    color: #111827;
+
+    background: #ffffff;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.input-wrapper input[type="password"],
+.input-wrapper input[type="text"] {
+    padding-right: 40px;
+}
+
+.input-wrapper input::placeholder {
+    color: #9ca3af;
+}
+
+.input-wrapper input:focus {
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+
+/* ---------- Password Toggle ---------- */
+
+.toggle-password {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    padding: 0;
+
+    background: transparent;
+
+    color: #9ca3af;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: #4b5563;
+}
+
+.eye-icon {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* ---------- Remember Me ---------- */
+
+.remember-me {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 14px;
+
+    color: #4b5563;
+
+    cursor: pointer;
+}
+
+.remember-me input {
+    width: 16px;
+    height: 16px;
+
+    margin: 0;
+
+    accent-color: #2563eb;
+
+    cursor: pointer;
+}
+
+
+/* ---------- Login Button ---------- */
+
+.login-button {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 10px 16px;
+
+    background: #1d4ed8;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease;
+}
+
+.login-button:hover {
+    background: #1e40af;
+}
+
+.login-button:active {
+    transform: translateY(1px);
+}
+
+
+/* ---------- Divider ---------- */
+
+.divider {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+.divider-line {
+    flex: 1;
+
+    height: 1px;
+
+    background: #e5e7eb;
+}
+
+.divider span {
+    font-size: 12px;
+
+    color: #9ca3af;
+
+    white-space: nowrap;
+}
+
+
+/* ---------- Footer ---------- */
+
+.footer {
+    background: #1e40af;
+
+    color: #dbeafe;
+
+    font-size: 14px;
+
+    text-align: center;
+
+    padding: 16px;
+}
+
+
+/* =========================================
+   Responsive Design
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    .top-bar {
+        padding: 14px 16px;
+    }
+
+    .top-bar-title {
+        font-size: 16px;
+    }
+
+    .main-content {
+        padding: 32px 16px;
+    }
+
+    .login-card {
+        padding: 24px 20px;
+        border-radius: 14px;
+    }
+
+    .login-card h1 {
+        font-size: 22px;
+    }
+
+    .access-notice {
+        padding: 14px;
+    }
+
+    .footer {
+        font-size: 12px;
+        padding: 14px 10px;
+    }
+}
