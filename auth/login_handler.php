@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/db.php'; // provides $conn (mysqli)
+
+require_once __DIR__ . '/../config/db.php';
 
 // Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -12,44 +13,78 @@ $email = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';
 $remember = isset($_POST['remember']);
 
+// Validate input
 if ($email === '' || $password === '') {
     $_SESSION['login_error'] = "Please enter both email and password.";
     header("Location: login.php");
     exit;
 }
 
-$stmt = $conn->prepare("SELECT admin_id, full_name, email, password FROM admins WHERE email = ? LIMIT 1");
+// Find user by email
+$stmt = $conn->prepare(
+    "SELECT user_id, username, email, password_hash, role
+     FROM users
+     WHERE email = ?
+     LIMIT 1"
+);
+
+if (!$stmt) {
+    $_SESSION['login_error'] = "Something went wrong. Please try again.";
+    header("Location: login.php");
+    exit;
+}
+
 $stmt->bind_param("s", $email);
 $stmt->execute();
+
 $result = $stmt->get_result();
-$admin = $result->fetch_assoc();
+$user = $result->fetch_assoc();
+
 $stmt->close();
 
-if ($admin && password_verify($password, $admin['password'])) {
+// Check credentials AND make sure the user is an admin
+if (
+    $user &&
+    $user['role'] === 'admin' &&
+    password_verify($password, $user['password_hash'])
+) {
+
     // Prevent session fixation
     session_regenerate_id(true);
-    $_SESSION['admin_id'] = $admin['admin_id'];
-    $_SESSION['admin_name'] = $admin['full_name'];
-    $_SESSION['admin_email'] = $admin['email'];
 
-    
+    // Store authenticated admin information
+    $_SESSION['user_id'] = $user['user_id'];
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['user_email'] = $user['email'];
+    $_SESSION['role'] = $user['role'];
+
+    // Optional "Remember Me"
     if ($remember) {
         $params = session_get_cookie_params();
+
         setcookie(
             session_name(),
             session_id(),
-            time() + (30 * 24 * 60 * 60),
-            $params['path'],
-            $params['domain'],
-            $params['secure'],
-            $params['httponly']
+            [
+                'expires' => time() + (30 * 24 * 60 * 60),
+                'path' => $params['path'],
+                'domain' => $params['domain'],
+                'secure' => $params['secure'],
+                'httponly' => $params['httponly'],
+                'samesite' => 'Lax'
+            ]
         );
     }
 
+    // Login successful
     header("Location: ../index.php");
     exit;
+
 } else {
+
+    // Don't reveal whether the email or password was wrong
     $_SESSION['login_error'] = "Invalid email or password.";
+
     header("Location: login.php");
     exit;
 }
