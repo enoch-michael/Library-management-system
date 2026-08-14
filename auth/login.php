@@ -19,7 +19,7 @@ unset($_SESSION['login_error']);
 
     <title>Admin Login - Library Management System</title>
 
-    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 
 <body>
