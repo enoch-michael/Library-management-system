@@ -76,7 +76,7 @@ function nav_active($page, $folder = null) {
                 <li class="<?php echo nav_active('search.php'); ?>">
                     <a href="<?php echo BASE_URL; ?>search.php"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
                 </li>
-                <a href="auth/logout.php" class="logout-btn">
+                <a href="../auth/logout.php" class="logout-btn">
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"
