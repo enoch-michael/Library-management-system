@@ -1,11 +1,12 @@
 <?php
+require_once __DIR__ . '/../config/paths.php';
 session_start();
 
 require_once __DIR__ . '/../config/db.php';
 
 // Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -16,7 +17,7 @@ $remember = isset($_POST['remember']);
 // Validate input
 if ($email === '' || $password === '') {
     $_SESSION['login_error'] = "Please enter both email and password.";
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -30,7 +31,7 @@ $stmt = $conn->prepare(
 
 if (!$stmt) {
     $_SESSION['login_error'] = "Something went wrong. Please try again.";
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -77,7 +78,7 @@ if (
     }
 
     // Login successful
-    header("Location: ../index.php");
+    header("Location: " . BASE_URL . "index.php");
     exit;
 
 } else {
@@ -85,6 +86,6 @@ if (
     // Don't reveal whether the email or password was wrong
     $_SESSION['login_error'] = "Invalid email or password.";
 
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
