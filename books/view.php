@@ -1,5 +1,8 @@
 <?php
 require_once '../config/db.php';
+require_once '../includes/auth.php';
+requireLogin();
+
 include '../includes/header.php';
 
 $result = $conn->query("
