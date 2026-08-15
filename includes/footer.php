@@ -7,7 +7,7 @@
     </div><!-- /.main-column -->
 </div><!-- /.layout -->
 
-<script src="<?php echo defined('BASE_URL') ? BASE_URL : '/library-system/'; ?>assets/js/validate.js"></script>
+<script src="<?php echo BASE_URL; ?>assets/js/validate.js"></script>
 
 </body>
 </html>
