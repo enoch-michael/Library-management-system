@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/../config/paths.php';
 session_start();
 
 // If already logged in, skip straight to dashboard
-if (isset($_SESSION['admin_id'])) {
-    header("Location: dashboard.php");
+if (isset($_SESSION['user_id'])) {
+    header("Location: " . BASE_URL . "index.php");
     exit;
 }
 
@@ -19,7 +20,8 @@ unset($_SESSION['login_error']);
 
     <title>Admin Login - Library Management System</title>
 
-    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/auth.css">
 </head>
 
 <body>
