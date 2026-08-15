@@ -1,17 +1,20 @@
 <?php
 require_once 'config/db.php';
+require_once 'includes/auth.php';
+requireLogin();
 include 'includes/header.php';
-require_once __DIR__ . '/includes/auth.php';
 
 $total_books   = $conn->query("SELECT COUNT(*) AS c FROM books")->fetch_assoc()['c'];
 $total_authors = $conn->query("SELECT COUNT(*) AS c FROM authors")->fetch_assoc()['c'];
 $total_members = $conn->query("SELECT COUNT(*) AS c FROM members")->fetch_assoc()['c'];
 $total_issued  = $conn->query("SELECT COUNT(*) AS c FROM issued_books WHERE status = 'issued'")->fetch_assoc()['c'];
+
+$user = currentUser();
 ?>
 
 <section class="hero">
     <div class="hero-icon"><i class="fa-solid fa-book-open"></i></div>
-    <h1>Welcome to the Library Management System</h1>
+    <h1>Welcome <?php echo htmlspecialchars($user['username'] ?? 'user'); ?></h1>
     <p>Manage books, authors, members, and track issued records &mdash; all in one place.</p>
 </section>
 
@@ -48,10 +51,10 @@ $total_issued  = $conn->query("SELECT COUNT(*) AS c FROM issued_books WHERE stat
             <span class="quick-link-icon"><i class="fa-solid fa-book-open"></i></span> View All Books
         </a>
         <a href="issue_return/issue.php" class="quick-link">
-            <span class="quick-link-icon"><i class="fa-solid fa-arrow-up-from-bracket"></i></span> Issue a Book
+            <span class="quick-link-icon"><i class="fa-solid fa-upload"></i></span> Issue a Book
         </a>
         <a href="issue_return/return.php" class="quick-link">
-            <span class="quick-link-icon"><i class="fa-solid fa-arrow-down-to-bracket"></i></span> Return a Book
+            <span class="quick-link-icon"><i class="fa-solid fa-download"></i></span> Return a Book
         </a>
         <a href="search.php" class="quick-link">
             <span class="quick-link-icon"><i class="fa-solid fa-magnifying-glass"></i></span> Search Books
