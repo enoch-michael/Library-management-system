@@ -1,6 +1,6 @@
 /* ============================================
    Library Management System — Global Styles
-   Sidebar dashboard theme
+   Topbar + Sidebar dashboard theme
    ============================================ */
 
 * {
@@ -20,10 +20,154 @@ a {
     text-decoration: none;
 }
 
+/* ---------- Topbar ---------- */
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border-bottom: 1px solid #e5e9ef;
+    padding: 8px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #1e293b;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.hamburger-btn:hover {
+    background: #f1f5fb;
+}
+
+.topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0f172a;
+    line-height: 1;
+}
+
+.topbar-logo i {
+    color: #2563eb;
+    font-size: 1.05rem;
+    line-height: 1;
+}
+
+.topbar-spacer {
+    flex: 1;
+}
+
+/* ---------- User dropdown menu ---------- */
+.user-menu {
+    position: relative;
+}
+
+.user-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #1e293b;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+}
+
+.user-menu-trigger:hover {
+    background: #f1f5fb;
+}
+
+.user-menu-trigger:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+.user-avatar {
+    font-size: 1.35rem;
+    color: #94a3b8;
+    line-height: 0;
+}
+
+.user-chevron {
+    font-size: 0.65rem;
+    color: #94a3b8;
+    transition: transform 0.2s ease;
+}
+
+.user-menu.open .user-chevron {
+    transform: rotate(180deg);
+}
+
+.user-menu-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    background: #fff;
+    border: 1px solid #e5e9ef;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+    min-width: 180px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+
+.user-menu.open .user-menu-dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.user-menu-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: #334155;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.1s ease;
+}
+
+.user-menu-dropdown a:hover,
+.user-menu-dropdown a:focus-visible {
+    background: #f7f9fb;
+    outline: none;
+}
+
+.user-menu-dropdown a i {
+    color: #dc2626;
+}
+
 /* ---------- Overall layout: sidebar + main ---------- */
 .layout {
     display: flex;
-    min-height: 100vh;
+    min-height: calc(100vh - 49px); /* subtract topbar height */
 }
 
 /* ---------- Sidebar ---------- */
@@ -32,6 +176,7 @@ a {
     background-color: #ffffff;
     border-right: 1px solid #e5e9ef;
     flex-shrink: 0;
+    transition: width 0.2s ease;
 }
 
 .sidebar-nav ul {
@@ -48,16 +193,24 @@ a {
     font-size: 0.95rem;
     font-weight: 500;
     border-left: 3px solid transparent;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .sidebar-nav li a i {
     width: 18px;
     text-align: center;
     color: #94a3b8;
+    transition: color 0.15s ease;
 }
 
 .sidebar-nav li a:hover {
     background-color: #f1f5fb;
+}
+
+.sidebar-nav li a:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: -2px;
 }
 
 .sidebar-nav li.active a {
@@ -70,11 +223,21 @@ a {
     color: #2563eb;
 }
 
+/* Desktop collapse (triggered by hamburger) */
+@media (min-width: 769px) {
+    body.sidebar-collapsed .sidebar {
+        width: 0;
+        border-right: none;
+        overflow: hidden;
+    }
+}
+
 /* ---------- Main column ---------- */
 .main-column {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .site-content {
@@ -131,6 +294,12 @@ a {
     border-radius: 12px;
     padding: 28px 20px;
     text-align: center;
+    transition: box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.stat-card:hover {
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    transform: translateY(-2px);
 }
 
 .stat-icon {
@@ -187,11 +356,18 @@ a {
     color: #1e293b;
     font-weight: 600;
     font-size: 0.9rem;
+    transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
 }
 
 .quick-link:hover {
     border-color: #2563eb;
     background: #f7faff;
+    transform: translateY(-1px);
+}
+
+.quick-link:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
 }
 
 .quick-link-icon {
@@ -234,6 +410,7 @@ form textarea {
     border-radius: 6px;
     font-size: 0.95rem;
     font-family: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 form input:focus,
@@ -253,6 +430,7 @@ form .error {
 button, .btn {
     display: inline-block;
     margin-top: 20px;
+    margin-bottom: 20px;
     background-color: #2563eb;
     color: #fff;
     border: none;
@@ -261,13 +439,42 @@ button, .btn {
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 600;
+    transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
 button:hover, .btn:hover {
     background-color: #1d4ed8;
 }
 
+button:active, .btn:active {
+    transform: scale(0.98);
+}
+
+button:focus-visible, .btn:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+button:disabled, .btn:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+}
+
 /* ---------- Tables (View pages) ---------- */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e5e9ef;
+    border-radius: 10px;
+}
+
+.table-responsive table {
+    border: none;
+    border-radius: 0;
+    min-width: 600px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -323,43 +530,7 @@ table tr:hover {
     padding-left: 18px;
 }
 
-/* ---------- Mobile top bar (hidden on desktop) ---------- */
-.mobile-topbar {
-    display: none;
-    align-items: center;
-    gap: 14px;
-    background: #fff;
-    border-bottom: 1px solid #e5e9ef;
-    padding: 14px 16px;
-    position: sticky;
-    top: 0;
-    z-index: 40;
-}
-
-.hamburger-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #1e293b;
-    cursor: pointer;
-    padding: 4px 8px;
-    line-height: 1;
-}
-
-.mobile-logo {
-    font-weight: 700;
-    font-size: 1rem;
-    color: #0f172a;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.mobile-logo i {
-    color: #2563eb;
-}
-
-/* Dark overlay behind the sidebar drawer on mobile */
+/* ---------- Sidebar overlay (mobile only) ---------- */
 .sidebar-overlay {
     display: none;
     position: fixed;
@@ -372,41 +543,30 @@ table tr:hover {
     display: block;
 }
 
-/* ---------- Scrollable tables (all screen sizes, kicks in when needed) ---------- */
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid #e5e9ef;
-    border-radius: 10px;
-}
-
-.table-responsive table {
-    border: none;
-    border-radius: 0;
-    min-width: 600px;
-}
-
-/* ---------- Responsive breakpoint ---------- */
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
 
-    .mobile-topbar {
-        display: flex;
+    .topbar-logo span {
+        font-size: 0.95rem;
+    }
+
+    .user-name {
+        display: none; /* keep just the avatar + chevron on small screens */
     }
 
     .layout {
         flex-direction: column;
     }
 
-    /* Sidebar becomes an off-canvas drawer */
     .sidebar {
         position: fixed;
-        top: 0;
+        top: 49px;
         left: 0;
-        height: 100%;
+        bottom: 0;
         width: 260px;
         transform: translateX(-100%);
         transition: transform 0.25s ease;
-        z-index: 50;
+        z-index: 48;
         overflow-y: auto;
     }
 
