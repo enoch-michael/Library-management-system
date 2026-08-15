@@ -2,7 +2,9 @@
  * Global site JS
  * -----------------
  * 1. Basic client-side form validation (any form with class "validate-form")
- * 2. Mobile sidebar toggle (hamburger menu on small screens)
+ * 2. Sidebar toggle — off-canvas drawer on mobile, collapse on desktop
+ * 3. User menu dropdown (topbar)
+ * 4. Password show/hide toggle (login/register pages)
  */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -51,35 +53,85 @@ document.addEventListener("DOMContentLoaded", function () {
         field.insertAdjacentElement("afterend", error);
     }
 
-    // ---------- 2. Mobile sidebar toggle ----------
+    // ---------- 2. Sidebar toggle ----------
     const sidebar = document.getElementById("sidebar");
     const toggleBtn = document.getElementById("sidebarToggle");
     const overlay = document.getElementById("sidebarOverlay");
 
-    if (sidebar && toggleBtn && overlay) {
-        function openSidebar() {
-            sidebar.classList.add("open");
-            overlay.classList.add("visible");
-        }
-        function closeSidebar() {
-            sidebar.classList.remove("open");
-            overlay.classList.remove("visible");
-        }
-
+    if (sidebar && toggleBtn) {
         toggleBtn.addEventListener("click", function () {
-            if (sidebar.classList.contains("open")) {
-                closeSidebar();
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                sidebar.classList.toggle("open");
+                if (overlay) overlay.classList.toggle("visible");
             } else {
-                openSidebar();
+                document.body.classList.toggle("sidebar-collapsed");
             }
         });
 
-        // Tapping the dark overlay closes the menu
-        overlay.addEventListener("click", closeSidebar);
+        if (overlay) {
+            overlay.addEventListener("click", function () {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("visible");
+            });
+        }
 
-        // Close the menu automatically after tapping a nav link (mobile)
+        // Close the mobile drawer automatically after tapping a nav link
         sidebar.querySelectorAll("a").forEach(function (link) {
-            link.addEventListener("click", closeSidebar);
+            link.addEventListener("click", function () {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove("open");
+                    if (overlay) overlay.classList.remove("visible");
+                }
+            });
         });
     }
+
+    // ---------- 3. User menu dropdown ----------
+    const userMenu = document.getElementById("userMenu");
+    const userMenuTrigger = document.getElementById("userMenuTrigger");
+
+    if (userMenu && userMenuTrigger) {
+        function setMenuOpen(isOpen) {
+            userMenu.classList.toggle("open", isOpen);
+            userMenuTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        }
+
+        userMenuTrigger.addEventListener("click", function (e) {
+            e.stopPropagation();
+            setMenuOpen(!userMenu.classList.contains("open"));
+        });
+
+        // Click anywhere else on the page closes the dropdown
+        document.addEventListener("click", function (e) {
+            if (!userMenu.contains(e.target)) {
+                setMenuOpen(false);
+            }
+        });
+
+        // Escape key closes the dropdown and returns focus to the trigger
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && userMenu.classList.contains("open")) {
+                setMenuOpen(false);
+                userMenuTrigger.focus();
+            }
+        });
+    }
+
+    // ---------- 4. Password show/hide toggle ----------
+    document.querySelectorAll(".password-toggle").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            const input = document.getElementById(btn.dataset.target);
+            if (!input) return;
+
+            if (input.type === "password") {
+                input.type = "text";
+                btn.classList.add("showing");
+            } else {
+                input.type = "password";
+                btn.classList.remove("showing");
+            }
+        });
+    });
 });
