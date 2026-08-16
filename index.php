@@ -8,6 +8,7 @@ $total_books   = $conn->query("SELECT COUNT(*) AS c FROM books")->fetch_assoc()[
 $total_authors = $conn->query("SELECT COUNT(*) AS c FROM authors")->fetch_assoc()['c'];
 $total_members = $conn->query("SELECT COUNT(*) AS c FROM members")->fetch_assoc()['c'];
 $total_issued  = $conn->query("SELECT COUNT(*) AS c FROM issued_books WHERE status = 'issued'")->fetch_assoc()['c'];
+$total_overdue = $conn->query("SELECT COUNT(*) AS c FROM issued_books WHERE status = 'issued' AND due_date < CURDATE()")->fetch_assoc()['c'];
 
 $user = currentUser();
 ?>
@@ -19,25 +20,30 @@ $user = currentUser();
 </section>
 
 <section class="stats-grid">
-    <div class="stat-card">
-        <div class="stat-icon icon-blue"><i class="fa-solid fa-book-open"></i></div>
-        <h2><?php echo $total_books; ?></h2>
-        <p>Total Books</p>
+    <div class="stat-card stat-blue">
+        <span class="stat-icon-badge"><i class="fa-solid fa-book-open"></i></span>
+        <div class="stat-label">Total Books</div>
+        <div class="stat-number"><?php echo $total_books; ?></div>
     </div>
-    <div class="stat-card">
-        <div class="stat-icon icon-green"><i class="fa-solid fa-feather-pointed"></i></div>
-        <h2><?php echo $total_authors; ?></h2>
-        <p>Total Authors</p>
+    <div class="stat-card stat-teal">
+        <span class="stat-icon-badge"><i class="fa-solid fa-feather-pointed"></i></span>
+        <div class="stat-label">Total Authors</div>
+        <div class="stat-number"><?php echo $total_authors; ?></div>
     </div>
-    <div class="stat-card">
-        <div class="stat-icon icon-purple"><i class="fa-solid fa-users"></i></div>
-        <h2><?php echo $total_members; ?></h2>
-        <p>Total Members</p>
+    <div class="stat-card stat-green">
+        <span class="stat-icon-badge"><i class="fa-solid fa-users"></i></span>
+        <div class="stat-label">Total Members</div>
+        <div class="stat-number"><?php echo $total_members; ?></div>
     </div>
-    <div class="stat-card">
-        <div class="stat-icon icon-orange"><i class="fa-solid fa-bookmark"></i></div>
-        <h2><?php echo $total_issued; ?></h2>
-        <p>Books Currently Issued</p>
+    <div class="stat-card stat-orange">
+        <span class="stat-icon-badge"><i class="fa-solid fa-bookmark"></i></span>
+        <div class="stat-label">Books Currently Issued</div>
+        <div class="stat-number"><?php echo $total_issued; ?></div>
+    </div>
+    <div class="stat-card stat-red">
+        <span class="stat-icon-badge"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <div class="stat-label">Overdue</div>
+        <div class="stat-number"><?php echo $total_overdue; ?></div>
     </div>
 </section>
 
@@ -51,10 +57,10 @@ $user = currentUser();
             <span class="quick-link-icon"><i class="fa-solid fa-book-open"></i></span> View All Books
         </a>
         <a href="issue_return/issue.php" class="quick-link">
-            <span class="quick-link-icon"><i class="fa-solid fa-upload"></i></span> Issue a Book
+            <span class="quick-link-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></span> Issue a Book
         </a>
         <a href="issue_return/return.php" class="quick-link">
-            <span class="quick-link-icon"><i class="fa-solid fa-download"></i></span> Return a Book
+            <span class="quick-link-icon"><i class="fa-solid fa-rotate-left"></i></span> Return a Book
         </a>
         <a href="search.php" class="quick-link">
             <span class="quick-link-icon"><i class="fa-solid fa-magnifying-glass"></i></span> Search Books
