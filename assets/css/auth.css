@@ -1,132 +1,133 @@
 /* ============================================
-   Login page — matches the actual markup in
-   auth/index.php (top-bar, login-card, etc.)
+   Login page — matches the navy-header card
+   reference design
    ============================================ */
 
-body {
-    background-color: #f7f9fb;
+.auth-page {
     min-height: 100vh;
     margin: 0;
     display: flex;
-    flex-direction: column;
-    font-family: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-    color: #1e293b;
-}
-
-/* ---------- Top bar ---------- */
-.top-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #fff;
-    border-bottom: 1px solid #e5e9ef;
-    padding: 16px 24px;
-}
-
-.top-bar-icon {
-    width: 26px;
-    height: 26px;
-    color: #2563eb;
-    flex-shrink: 0;
-}
-
-.top-bar-title {
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: #0f172a;
-}
-
-/* ---------- Main content / centered card ---------- */
-.main-content {
-    flex: 1;
-    display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #eef1f6;
+    font-family: -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    color: #1e293b;
+    position: relative;
+    overflow: hidden;
     padding: 40px 20px;
+}
+
+/* Soft decorative background shapes */
+.auth-shape {
+    position: absolute;
+    border-radius: 24px;
+    background: #dbeafe;
+    z-index: 0;
+}
+
+.auth-shape-1 { width: 140px; height: 140px; top: 12%; left: 8%; transform: rotate(20deg); opacity: 0.7; }
+.auth-shape-2 { width: 90px; height: 90px; bottom: 14%; left: 12%; border-radius: 50%; opacity: 0.6; }
+.auth-shape-3 { width: 160px; height: 160px; bottom: 8%; right: 8%; transform: rotate(-15deg); opacity: 0.5; }
+
+.auth-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 420px;
 }
 
 .login-card {
     background: #fff;
-    border: 1px solid #e5e9ef;
     border-radius: 16px;
-    padding: 40px 36px;
     width: 100%;
-    max-width: 420px;
-    box-shadow: 0 4px 24px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
 }
 
-.logo-container {
+/* Navy header block inside the card */
+.login-card-header {
+    background: #10192f;
+    padding: 26px 32px;
     display: flex;
-    justify-content: center;
-    margin-bottom: 16px;
+    align-items: center;
+    gap: 12px;
 }
 
-.logo-icon {
-    width: 44px;
-    height: 44px;
-    color: #2563eb;
+.login-card-logo-icon {
+    width: 30px;
+    height: 30px;
+    color: #60a5fa;
+    flex-shrink: 0;
 }
 
-.login-card h1 {
-    text-align: center;
-    font-size: 1.5rem;
+.login-card-logo-title {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+}
+
+.login-card-logo-sub {
+    color: #94a3b8;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.login-card-body {
+    padding: 32px;
+}
+
+.login-card-body h1 {
+    font-size: 1.35rem;
     font-weight: 700;
     color: #0f172a;
-    margin: 0 0 6px;
-}
-
-.subtitle {
+    margin: 0 0 18px;
     text-align: center;
-    color: #64748b;
-    font-size: 0.9rem;
-    margin: 0 0 24px;
 }
 
-/* ---------- Admin access notice box ---------- */
+/* Admin access notice */
 .access-notice {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
     background: #eef4ff;
     border: 1px solid #dbe7fb;
     border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 24px;
+    padding: 11px 14px;
+    margin-bottom: 22px;
 }
 
 .notice-icon {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     color: #2563eb;
     flex-shrink: 0;
-    margin-top: 2px;
 }
 
-.notice-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 0 0 2px;
-}
-
-.notice-text {
+.access-notice p {
     font-size: 0.82rem;
-    color: #475569;
-    line-height: 1.4;
+    color: #334155;
+    font-weight: 600;
     margin: 0;
 }
 
-/* ---------- Error message ---------- */
+/* Error message */
 .error-message {
     background: #fef2f2;
     border: 1px solid #fecaca;
     color: #b91c1c;
-    padding: 12px 16px;
+    padding: 11px 14px;
     border-radius: 8px;
     font-size: 0.85rem;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
-/* ---------- Form ---------- */
+/* Form */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -135,6 +136,8 @@ body {
 
 .input-wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .input-icon {
@@ -165,16 +168,16 @@ body {
     box-shadow: 0 0 0 3px #dbeafe;
 }
 
-/* Password field needs extra right padding for the eye toggle */
 .input-wrapper input#password {
     padding-right: 42px;
 }
 
 .toggle-password {
     position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 8px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
     width: 28px;
     height: 28px;
     display: flex;
@@ -201,14 +204,21 @@ body {
     width: 18px;
     height: 18px;
     color: #94a3b8;
+    display: block;
 }
 
-/* ---------- Remember me ---------- */
+/* Row: remember me */
+.login-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .remember-me {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: #475569;
     cursor: pointer;
     user-select: none;
@@ -221,23 +231,24 @@ body {
     cursor: pointer;
 }
 
-/* ---------- Login button ---------- */
+/* Sign in button — dark navy, matches header */
 .login-button {
     width: 100%;
-    background-color: #2563eb;
+    background-color: #10192f;
     color: #fff;
     border: none;
     padding: 13px;
     border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     cursor: pointer;
     margin-top: 4px;
     transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
 .login-button:hover {
-    background-color: #1d4ed8;
+    background-color: #1e293b;
 }
 
 .login-button:active {
@@ -249,43 +260,24 @@ body {
     outline-offset: 2px;
 }
 
-/* ---------- Divider ---------- */
-.divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 20px;
+.auth-footnote {
+    margin-top: 22px;
+    font-size: 0.78rem;
     color: #94a3b8;
-    font-size: 0.8rem;
-}
-
-.divider-line {
-    flex: 1;
-    height: 1px;
-    background: #e5e9ef;
-}
-
-/* ---------- Bottom footer bar ---------- */
-.footer {
     text-align: center;
-    padding: 18px;
-    background-color: #1d4ed8;
-    color: #fff;
-    font-size: 0.85rem;
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 480px) {
-    .login-card {
-        padding: 28px 22px;
-        border-radius: 12px;
+    .login-card-header {
+        padding: 20px 22px;
     }
 
-    .main-content {
-        padding: 24px 16px;
+    .login-card-body {
+        padding: 24px 22px;
     }
 
-    .top-bar {
-        padding: 14px 16px;
+    .auth-shape {
+        display: none;
     }
 }
