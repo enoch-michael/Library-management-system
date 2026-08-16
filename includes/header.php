@@ -1,6 +1,6 @@
 <?php
 /**
- * Shared Header — Topbar + Sidebar Navigation
+ * Shared Header — Dark Sidebar Navigation
  * -----------------------------------------------
  * Include this AFTER db.php, auth.php + requireLogin(), and any
  * page-specific PHP logic, but BEFORE your HTML content.
@@ -22,9 +22,9 @@ function nav_active($page, $folder = null) {
     return ($current_page === $page) ? 'active' : '';
 }
 
-// Pull the logged-in user's display name for the topbar dropdown
 $loggedInUser = function_exists('currentUser') ? currentUser() : null;
 $displayName = $loggedInUser['username'] ?? 'Guest';
+$initial = strtoupper(substr($displayName, 0, 1));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,41 +37,35 @@ $displayName = $loggedInUser['username'] ?? 'Guest';
 </head>
 <body>
 
-<!-- Topbar: always visible, spans full width -->
+<!-- Slim mobile topbar: just the menu toggle -->
 <header class="topbar">
     <button id="sidebarToggle" class="hamburger-btn" aria-label="Toggle menu">
         <i class="fa-solid fa-bars"></i>
     </button>
-
     <div class="topbar-logo">
         <i class="fa-solid fa-book-open"></i>
         <span>Library Management System</span>
     </div>
-
-    <div class="topbar-spacer"></div>
-
-    <div class="user-menu" id="userMenu">
-        <button class="user-menu-trigger" id="userMenuTrigger" aria-haspopup="true" aria-expanded="false">
-            <span class="user-avatar"><i class="fa-solid fa-circle-user"></i></span>
-            <span class="user-name"><?php echo htmlspecialchars($displayName); ?></span>
-            <i class="fa-solid fa-chevron-down user-chevron"></i>
-        </button>
-        <div class="user-menu-dropdown" id="userMenuDropdown" role="menu">
-            <a href="<?php echo BASE_URL; ?>auth/logout.php" role="menuitem"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
-        </div>
-    </div>
 </header>
 
-<!-- Overlay behind the sidebar when open on mobile -->
 <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
 <div class="layout">
 
     <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+            <span class="sidebar-brand-icon"><i class="fa-solid fa-book-open"></i></span>
+            <div>
+                <div class="sidebar-brand-name">Library</div>
+                <div class="sidebar-brand-sub">Management System</div>
+            </div>
+        </div>
+
         <nav class="sidebar-nav">
             <ul>
                 <li class="<?php echo nav_active('index.php'); ?>">
-                    <a href="<?php echo BASE_URL; ?>index.php"><i class="fa-solid fa-house"></i> Dashboard</a>
+                    <a href="<?php echo BASE_URL; ?>index.php"><i class="fa-solid fa-grip"></i> Dashboard</a>
                 </li>
                 <li class="<?php echo nav_active(null, 'books'); ?>">
                     <a href="<?php echo BASE_URL; ?>books/view.php"><i class="fa-solid fa-book-open"></i> Books</a>
@@ -83,10 +77,10 @@ $displayName = $loggedInUser['username'] ?? 'Guest';
                     <a href="<?php echo BASE_URL; ?>members/view.php"><i class="fa-solid fa-users"></i> Members</a>
                 </li>
                 <li class="<?php echo nav_active('issue.php'); ?>">
-                    <a href="<?php echo BASE_URL; ?>issue_return/issue.php"><i class="fa-solid fa-upload"></i> Issue Book</a>
+                    <a href="<?php echo BASE_URL; ?>issue_return/issue.php"><i class="fa-solid fa-arrow-right-arrow-left"></i> Issue Book</a>
                 </li>
                 <li class="<?php echo nav_active('return.php'); ?>">
-                    <a href="<?php echo BASE_URL; ?>issue_return/return.php"><i class="fa-solid fa-download"></i> Return Book</a>
+                    <a href="<?php echo BASE_URL; ?>issue_return/return.php"><i class="fa-solid fa-rotate-left"></i> Return Book</a>
                 </li>
                 <li class="<?php echo nav_active('status.php'); ?>">
                     <a href="<?php echo BASE_URL; ?>issue_return/status.php"><i class="fa-regular fa-clock"></i> Issued/Overdue</a>
@@ -96,6 +90,20 @@ $displayName = $loggedInUser['username'] ?? 'Guest';
                 </li>
             </ul>
         </nav>
+
+        <div class="sidebar-user">
+            <div class="sidebar-user-info">
+                <span class="sidebar-avatar"><?php echo htmlspecialchars($initial); ?></span>
+                <div>
+                    <div class="sidebar-user-label">Welcome,</div>
+                    <div class="sidebar-user-name"><?php echo htmlspecialchars($displayName); ?></div>
+                </div>
+            </div>
+            <a href="<?php echo BASE_URL; ?>auth/logout.php" class="sidebar-logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+            </a>
+        </div>
+
     </aside>
 
     <div class="main-column">
