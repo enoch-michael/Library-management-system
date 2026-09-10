@@ -39,8 +39,8 @@ if (!defined('BASE_URL')) {
             $base = '';
         }
 
-        $base = '/' . trim($base, '/') . '/';
-        $base = $base === '' ? '/' : '/' . $base . '/';
+        $base = '/' . trim($base, '/');
+        $base = $base === '/' ? '/' : $base . '/';
         define('BASE_URL', $base);
     }
 }
