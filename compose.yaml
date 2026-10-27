@@ -1,0 +1,39 @@
+services:
+  database:
+    build: 
+      context: ./database
+      dockerfile: containerfile-db
+    image: lib-database-conn:v1
+    container_name: lib-database-pod
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    networks:
+      - libnet
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  frontend:
+    build: 
+      context: .
+      dockerfile: Containerfile
+    image: lib-frontend-conn:v1
+    container_name: lib-frontend-pod
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+     - libnet
+
+volumes:
+ mysqldata: {}
+
+networks: 
+  libnet: {}
