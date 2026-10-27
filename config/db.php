@@ -8,10 +8,10 @@
  */
 
 // --- Connection settings ---
-$db_host = "localhost";
-$db_user = "root";      // default XAMPP/WAMP username
-$db_pass = "";          // default XAMPP/WAMP password is blank
-$db_name = "library_db";
+$db_host = getenv('DB_HOST') ?: "localhost";
+$db_user = getenv('DB_USER') ?: "root";      // default XAMPP/WAMP username
+$db_pass = getenv('DB_PASS') ?: "";          // default XAMPP/WAMP password is blank
+$db_name = getenv('DB_NAME') ?: "library_db"; // The "getenv" is to read configuration from environment variables for containerization.
 
 // --- Create connection ---
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
